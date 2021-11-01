@@ -1,72 +1,46 @@
-import java.util.Enumeration;
-import java.util.Vector;
+package blockbuster;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class Customer {
     private String _name;
-    private Vector _rentals = new Vector();
-    
+    private List<Rental> rentals = new ArrayList<>();
+
     public Customer (String name) {
         _name = name;
     }
-    
-    public void addRental(Rental arg) {
-        _rentals.addElement(arg);
+
+    public void addRental(Rental rental) {
+        rentals.add(rental);
     }
-    
+
     public String getName() {
         return _name;
     }
-    
-    public String statement() {
-    
-        double      totalAmount          = 0;
-        int         frequentRenterPoints = 0;
-        Enumeration rentals              = _rentals.elements();
-        String      result               = "Rental Record for " + getName() + "\n";
-        
-        while (rentals.hasMoreElements()) {
-            
-            double thisAmount = 0;
-            Rental each       = (Rental) rentals.nextElement();
-            
-            // determine amounts for each line
-            switch (each.getMovie().getPriceCode()) {
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if (each.getDaysRented() > 2) {
-                        thisAmount += (each.getDaysRented() - 2) * 1.5;
-                    }
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.getDaysRented() * 3;
-                    break;
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if (each.getDaysRented() > 3) {
-                        thisAmount += (each.getDaysRented() - 3) * 1.5;
-                    }
-                    break;
-            }
-            
-            // add frequent renter points
-            frequentRenterPoints++;
-            
-            // add bonus for a two day new release rental
-            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-                (each.getDaysRented() > 1)) {
-                    frequentRenterPoints++;
-            }
-            
-            // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() +
-                      "\t" + String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
-        }
-        
-        // add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) +
-                  " frequent renter points";
+
+    public String htmlRentalReceipt() {
+        String result = "<h1>Rental record for <em>" + getName() + "</em></h1>\n<table>\n";
+        for (Rental rental : rentals)
+            result += "\t<tr><td>" + rental.getMovie().getTitle() + "</td><td>" + ": "
+                    + rental.getRentalPrice() + "</td></tr>\n";
+        result += "</table>\n<p>Amount owed is <em>" + getTotalCharge() + "</em></p>\n";
+        result += "<p>You earned <em>" + getTotalFrequentRenterPoints()
+                + "</em> frequent renter points</p>";
         return result;
+    }
+
+    private double getTotalCharge() {
+        double total = 0;
+        for (Rental rental : rentals)
+            total += rental.getRentalPrice();
+        return total;
+    }
+
+    private double getTotalFrequentRenterPoints() {
+        double total = 0;
+        for (Rental rental: rentals)
+            total += rental.getFrequentRenterPoints();
+        return total;
     }
 }

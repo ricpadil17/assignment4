@@ -1,17 +1,35 @@
+package blockbuster;
+
 public class Rental {
     private Movie _movie;
     private int   _daysRented;
-    
-    public Rental(Movie movie, int daysRented) {
+    private PriceStrategy priceStrategy;
+    private FrequentRenterPointsStrategy frequentRenterPointsStrategy;
+
+    public Rental(Movie movie, int daysRented, PriceStrategy priceStrat, FrequentRenterPointsStrategy frpStrategy) {
         _movie      = movie;
         _daysRented = daysRented;
+        setPriceStrategy(priceStrat);
+        setFrequentRenterPointsStrategy(frpStrategy);
     }
-    
-    public int getDaysRented() {
-        return _daysRented;
-    }
-    
+
     public Movie getMovie() {
         return _movie;
+    }
+
+    public double getRentalPrice() {
+        return priceStrategy.computeRentalPrice(_daysRented);
+    }
+
+    public double getFrequentRenterPoints() {
+        return frequentRenterPointsStrategy.computeFrequentRenterPoints();
+    }
+
+    public void setFrequentRenterPointsStrategy(FrequentRenterPointsStrategy strategy) {
+        this.frequentRenterPointsStrategy = strategy;
+    }
+
+    public void setPriceStrategy(PriceStrategy strategy) {
+        this.priceStrategy = strategy;
     }
 }
