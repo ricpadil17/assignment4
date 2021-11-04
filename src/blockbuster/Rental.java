@@ -6,11 +6,9 @@ public class Rental {
     private PriceStrategy priceStrategy;
     private FrequentRenterPointsStrategy frequentRenterPointsStrategy;
 
-    public Rental(Movie movie, int daysRented, PriceStrategy priceStrat, FrequentRenterPointsStrategy frpStrategy) {
+    public Rental(Movie movie, int daysRented) {
         _movie      = movie;
         _daysRented = daysRented;
-        setPriceStrategy(priceStrat);
-        setFrequentRenterPointsStrategy(frpStrategy);
     }
 
     public Movie getMovie() {
