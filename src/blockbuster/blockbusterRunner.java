@@ -20,7 +20,6 @@ public class blockbusterRunner {
         addCustomerRentals(customer, Rentals);
 
         System.out.println(customer.htmlRentalReceipt());
-
     }
 
 
