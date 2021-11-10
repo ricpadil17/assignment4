@@ -7,6 +7,8 @@ IDE: IntelliJ Community Edition 2021.2.2
 Java Version: java 17 2021-09-14 LTS
 Java(TM) SE Runtime Environment (build 17+35-LTS-2724)
 
+### Code runs with the Run button in IntelliJ
+
 # Homework Description:
 REFACTORING TO DESIGN PATTERNS
 In this homework, you are required to use the code for 
