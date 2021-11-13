@@ -48,8 +48,12 @@ public class blockbusterRunner {
     public static void setFRPStrategies(List<Rental> rentals) {
         for(Rental r : rentals) {
             if (r.getMovie().getReleaseDate() < RunnerProperties.TWO_WEEKS) {
-                r.setFrequentRenterPointsStrategy(new BonusFrequentRenterPointsStrategy());
+                r.setFrequentRenterPointsStrategy(new BonusFrpStrategy());
             }
+            /*
+            TODO: add extra if cases for new strategies.
+            TODO: need to account for REGULAR POINTS vs BONUS POINTS
+             */
             else {
                 r.setFrequentRenterPointsStrategy(new FrequentRenterPointsStrategy());
             }
