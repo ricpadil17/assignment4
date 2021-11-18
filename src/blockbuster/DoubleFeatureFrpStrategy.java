@@ -1,6 +1,6 @@
 package blockbuster;
 
-public class DoubleFeatureFrpStrategy {
+public class DoubleFeatureFrpStrategy extends FrequentRenterPointsStrategy{
 
     public DoubleFeatureFrpStrategy(){
 

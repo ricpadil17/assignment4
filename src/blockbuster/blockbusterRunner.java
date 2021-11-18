@@ -6,20 +6,26 @@ import java.util.List;
 public class blockbusterRunner {
 
     public static void main(String[] args) {
-        Customer customer = new Customer("Eugene McDermott");
+        Customer customer = new Customer("Eugene McDermott", 18);
+        Transaction transaction = new Transaction(customer);
         List<Rental> Rentals = new ArrayList<>();
         populateMovieSelection();
 
-        Rentals.add(new Rental(RunnerProperties.selection.get(0), RunnerProperties.TWO_DAYS_RENTED));
-        Rentals.add(new Rental(RunnerProperties.selection.get(1), RunnerProperties.FOUR_DAYS_RENTED));
-        Rentals.add(new Rental(RunnerProperties.selection.get(2), RunnerProperties.THREE_DAYS_RENTED));
-        Rentals.add(new Rental(RunnerProperties.selection.get(3), RunnerProperties.ONE_DAY_RENTED));
+        transaction.addRental(new Rental(RunnerProperties.selection.get(0), RunnerProperties.TWO_DAYS_RENTED));
+        transaction.addRental(new Rental(RunnerProperties.selection.get(1), RunnerProperties.FOUR_DAYS_RENTED));
+        transaction.addRental(new Rental(RunnerProperties.selection.get(2), RunnerProperties.THREE_DAYS_RENTED));
+        transaction.addRental(new Rental(RunnerProperties.selection.get(3), RunnerProperties.ONE_DAY_RENTED));
 
-        setRentalStrategies(Rentals);
-        setFRPStrategies(Rentals);
-        addCustomerRentals(customer, Rentals);
+//        Rentals.add(new Rental(RunnerProperties.selection.get(0), RunnerProperties.TWO_DAYS_RENTED));
+//        Rentals.add(new Rental(RunnerProperties.selection.get(1), RunnerProperties.FOUR_DAYS_RENTED));
+//        Rentals.add(new Rental(RunnerProperties.selection.get(2), RunnerProperties.THREE_DAYS_RENTED));
+//        Rentals.add(new Rental(RunnerProperties.selection.get(3), RunnerProperties.ONE_DAY_RENTED));
 
-        System.out.println(customer.htmlRentalReceipt());
+        setRentalStrategies(transaction);
+        setFRPStrategies(transaction, customer);
+//        addCustomerRentals(customer, transaction.getRentals());
+
+        System.out.println(transaction.htmlRentalReceipt());
     }
 
 
@@ -31,8 +37,8 @@ public class blockbusterRunner {
         RunnerProperties.selection.add(new Movie("Cory in the House", RunnerProperties.CHILDRENS_GENRE, RunnerProperties.TWO_WEEKS));
     }
 
-    public static void setRentalStrategies(List<Rental> rentals) {
-        for(Rental r : rentals) {
+    public static void setRentalStrategies(Transaction transaction) {
+        for(Rental r : transaction.getRentals()) {
             if (r.getMovie().getReleaseDate() < RunnerProperties.TWO_WEEKS) {
                 r.setPriceStrategy(new NewPriceStrategy());
             }
@@ -45,12 +51,19 @@ public class blockbusterRunner {
         }
     }
 
-    public static void setFRPStrategies(List<Rental> rentals) {
-        for(Rental r : rentals) {
+    public static void setFRPStrategies(Transaction transaction, Customer customer) {
+        for(Rental r : transaction.getRentals()) {
             if (r.getMovie().getReleaseDate() < RunnerProperties.TWO_WEEKS) {
                 r.setFrequentRenterPointsStrategy(new BonusFrpStrategy());
             }
             /*
+            else if (transaction.getTotalTypesofMovies() > RunnerProperties.DOUBLE_FRP_THRESHOLD) {
+                r.setFrequentRenterPointsStrategy(new DoubleFeatureFrpStrategy());
+            }
+            else if (RunnerProperties.COLLEGE_AGE_MIN <= customer.getAge() && customer.getAge() <= RunnerProperties.COLLEGE_AGE_MAX
+            && transaction.hasNewRelease()) {
+                r.setFrequentRenterPointsStrategy(new UndergradBonusFRPStrategy());
+            }
             TODO: add extra if cases for new strategies.
             TODO: need to account for REGULAR POINTS vs BONUS POINTS
              */
@@ -60,9 +73,9 @@ public class blockbusterRunner {
         }
     }
 
-    public static void addCustomerRentals(Customer customer, List<Rental> rentals) {
-        for(Rental r : rentals) {
-            customer.addRental(r);
-        }
-    }
+//    public static void addCustomerRentals(Customer customer, List<Rental> rentals) {
+//        for(Rental r : rentals) {
+//            transaction.addRental(r);
+//        }
+//    }
 }

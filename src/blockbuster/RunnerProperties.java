@@ -19,4 +19,8 @@ public class RunnerProperties {
 
     static final String CHILDRENS_GENRE = "CHILDRENS";
     static final String THRILLER_GENRE = "THRILLER";
+
+    static final int DOUBLE_FRP_THRESHOLD = 2;
+    static final int COLLEGE_AGE_MIN = 18;
+    static final int COLLEGE_AGE_MAX = 22;
 }

@@ -1,6 +1,6 @@
 package blockbuster;
 
-public class UndergradBonusFRPStrategy {
+public class UndergradBonusFRPStrategy extends FrequentRenterPointsStrategy{
 
     public UndergradBonusFRPStrategy(){
 
