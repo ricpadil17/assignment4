@@ -6,6 +6,8 @@ import java.util.List;
 public class Transaction {
     private List<Rental> rentals = new ArrayList<>();
     private Customer customer;
+    private TransactionFRPStrategy frequentRenterPointsStrategy;
+
     public Transaction(Customer c){
         customer = c;
     }
@@ -25,18 +27,33 @@ public class Transaction {
         return total;
     }
 
-    private double getTotalFrequentRenterPoints() {
-        double total = 0;
+    private double getRentalFRP() {
+        double rentalTotal = 0;
         for (Rental rental: rentals)
-            total += rental.getFrequentRenterPoints();
-        return total;
+            rentalTotal += rental.getFrequentRenterPoints();
+        return rentalTotal;
     }
 
-    public int getTotalTypesofMovies() {
+    private double getTotalFrequentRenterPoints() {
+        double totalFRP = getRentalFRP();
+        totalFRP += computeTransactionFRP();
+        return totalFRP;
+    }
+
+    public void setFrequentRenterPointsStrategy(TransactionFRPStrategy strategy) {
+        this.frequentRenterPointsStrategy = strategy;
+    }
+
+    public double computeTransactionFRP() {
+        return frequentRenterPointsStrategy.computeFrequentRenterPoints(this);
+    }
+
+    public int getTotalTypesOfMovies() {
         List<Movie> movies = new ArrayList<>();
         int instances = 0;
         movies.add(rentals.get(0).getMovie());
         for(Rental r: rentals) {
+            instances = 0;
             for(int i = 0; i < movies.size(); i++) {
                 if(r.getMovie().getGenre() == movies.get(i).getGenre()){
                     instances++;
@@ -65,7 +82,7 @@ public class Transaction {
                     + rental.getRentalPrice() + "</td></tr>\n";
         result += "</table>\n<p>Amount owed is <em>" + getTotalCharge() + "</em></p>\n";
         result += "<p>You earned <em>" + getTotalFrequentRenterPoints()
-                + "</em> frequent renter points</p>";
+                + "</em> frequent renter points</p>\n\n";
         return result;
     }
 }

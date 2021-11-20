@@ -1,13 +1,19 @@
 package blockbuster;
 
-public class UndergradBonusFRPStrategy extends FrequentRenterPointsStrategy{
+import java.util.List;
+
+public class UndergradBonusFRPStrategy extends TransactionFRPStrategy{
 
     public UndergradBonusFRPStrategy(){
 
     }
 
-    public double computeFrequentRenterPoints(){
-        //TODO: add proper algorithm
-        return 2;
+    public double computeFrequentRenterPoints(Transaction transaction){
+        double totalBonusPoints;
+
+        List<Rental> rentals = transaction.getRentals();
+        totalBonusPoints = rentals.size();
+
+        return totalBonusPoints;
     }
 }
