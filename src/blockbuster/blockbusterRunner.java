@@ -73,13 +73,12 @@ public class blockbusterRunner {
     }
 
     public static void setTransactionFRPStrategy(Transaction transaction, Customer customer) {
-
-        if (transaction.getTotalTypesOfMovies() > RunnerProperties.DOUBLE_FRP_THRESHOLD) {
-            transaction.setFrequentRenterPointsStrategy(new DoubleFeatureFrpStrategy());
-        }
-        else if (RunnerProperties.COLLEGE_AGE_MIN <= customer.getAge() && customer.getAge() <= RunnerProperties.COLLEGE_AGE_MAX
+        if (RunnerProperties.COLLEGE_AGE_MIN <= customer.getAge() && customer.getAge() <= RunnerProperties.COLLEGE_AGE_MAX
                 && transaction.hasNewRelease()) {
             transaction.setFrequentRenterPointsStrategy(new UndergradBonusFRPStrategy());
+        }
+        else if (transaction.getTotalTypesOfMovies() > RunnerProperties.DOUBLE_FRP_THRESHOLD) {
+            transaction.setFrequentRenterPointsStrategy(new DoubleFeatureFrpStrategy());
         }
         else {
             transaction.setFrequentRenterPointsStrategy(new TransactionFRPStrategy());
