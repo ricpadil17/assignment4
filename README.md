@@ -1,4 +1,4 @@
-# assignment4
+# assignment 5
 
 Using the following:
 
@@ -20,3 +20,8 @@ b. The first new frequent rental point computation gives double regular points t
 18-22 and renting one or multiple new release movies.
 
 You can work in a group of at most 2 students.
+
+## Notes about the runner class
+- Eugene McDermott's transaction is designed to show the 18-22 strategy
+- Linus Torvalds's transaction is designed to show the >2 types of movies strategy
+- Grady Booch's transaction is designed to show the default strategy (no double points)
