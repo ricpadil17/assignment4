@@ -1,4 +1,4 @@
-package blockbuster;
+package Blockbuster;
 
 import java.util.List;
 

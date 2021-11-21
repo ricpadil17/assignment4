@@ -1,12 +1,14 @@
-package blockbuster;
+package Blockbuster;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static Blockbuster.RunnerProperties.TWO_WEEKS;
+
 public class Transaction {
     private List<Rental> rentals = new ArrayList<>();
     private Customer customer;
-    private TransactionFRPStrategy frequentRenterPointsStrategy;
+    private TransactionFRPStrategy transactionFRPStrategy;
 
     public Transaction(Customer c){
         customer = c;
@@ -40,12 +42,12 @@ public class Transaction {
         return totalFRP;
     }
 
-    public void setFrequentRenterPointsStrategy(TransactionFRPStrategy strategy) {
-        this.frequentRenterPointsStrategy = strategy;
+    public void setTransactionFRPStrategy(TransactionFRPStrategy strategy) {
+        this.transactionFRPStrategy = strategy;
     }
 
     public double computeTransactionFRP() {
-        return frequentRenterPointsStrategy.computeFrequentRenterPoints(this);
+        return transactionFRPStrategy.computeFrequentRenterPoints(this);
     }
 
     public int getTotalTypesOfMovies() {
@@ -68,7 +70,7 @@ public class Transaction {
 
     public boolean hasNewRelease() {
         for(Rental r: rentals) {
-            if(r.getMovie().getReleaseDate()< RunnerProperties.TWO_WEEKS) {
+            if(r.getMovie().getReleaseDate()< TWO_WEEKS) {
                 return true;
             }
         }
