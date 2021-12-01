@@ -1,6 +1,6 @@
-package blockbuster;
+package Blockbuster;
 
-public class ChildrensPriceStrategy extends PriceStrategy{
+public class RegularPriceStrategy extends PriceStrategy{
 
 
     private double lateFeeFactor;
@@ -8,21 +8,19 @@ public class ChildrensPriceStrategy extends PriceStrategy{
     private double allowedRentalDays;
     private double baseRentalPrice;
 
-
-    public ChildrensPriceStrategy() {
+    public RegularPriceStrategy() {
         lateFeeFactor = 1.5;
         rentalPrice = 0;
-        allowedRentalDays = 3;
-        baseRentalPrice = 1.5;
+        allowedRentalDays = 2;
+        baseRentalPrice = 2;
     }
 
     @Override
     public double computeRentalPrice(int daysRented) {
         rentalPrice = baseRentalPrice;
-        if (daysRented > allowedRentalDays) {
-            rentalPrice += (daysRented - allowedRentalDays) * lateFeeFactor;
+        if(daysRented > allowedRentalDays) {
+            rentalPrice += (daysRented-allowedRentalDays) * lateFeeFactor;
         }
         return rentalPrice;
     }
 }
-

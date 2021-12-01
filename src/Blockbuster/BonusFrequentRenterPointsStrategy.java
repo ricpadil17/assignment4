@@ -1,4 +1,4 @@
-package blockbuster;
+package Blockbuster;
 
 public class BonusFrequentRenterPointsStrategy extends FrequentRenterPointsStrategy{
 

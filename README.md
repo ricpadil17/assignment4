@@ -10,15 +10,14 @@ Java(TM) SE Runtime Environment (build 17+35-LTS-2724)
 ### Code runs with the Run button in IntelliJ
 
 # Homework Description:
-REFACTORING TO DESIGN PATTERNS
-In this homework, you are required to use the code for 
-the original movie rental application and add the following features:
+DECORATORS and STRATEGIES
+In this homework, you are required to use the code for the movie rental application and add
+the following features:
 
-1. You are required to modify the code to make the function of computing
-frequent rental points into a strategy design pattern
-(That is, you will have strategy classes to compute frequent rental points).
+Implementing the following two new policies for a coupon system:
 
+a. A coupon for a rental that allows 50% off the entire rental price.
 
-2. You are required to modify the code to make the function of computing 
-rental prices into a strategy design pattern 
-(That is, you will have strategy classes to compute rental prices).
+b. A coupon for a rental that takes 10$ off for a total rental of more than 50$.
+
+c. A mechanism to have 10 frequent rental points for a free movie
